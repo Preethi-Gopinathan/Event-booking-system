@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventHub - Login & Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-white via-orange-50 to-orange-100 min-h-screen">
+
+  <!-- Header/Navbar -->
+  <header class="flex justify-between items-center px-8 py-4 bg-white shadow">
+    <div class="font-bold text-lg flex items-center gap-2">
+      <span>📅</span> EventHub
+    </div>
+    <nav class="flex items-center gap-4">
+      <a href="#" class="text-gray-700 font-medium transition-colors hover:text-orange-500">Events</a>
+      <a href="#" class="text-orange-500 underline font-medium">Login</a>
+      <button id="signupNavBtn" class="ml-2 px-4 py-1 rounded bg-orange-500 text-white font-medium hover:bg-orange-600">Sign Up</button>
+    </nav>
+  </header>
+
+  <main class="flex flex-col items-center justify-center min-h-[80vh]">
+    <div class="bg-orange-50 shadow-xl rounded-2xl py-10 px-8 w-full max-w-md flex flex-col items-center mt-6">
+      <!-- Tabs -->
+      <div class="flex justify-center gap-7 w-full mb-7">
+        <button id="loginTab" class="font-semibold text-gray-700 transition-colors focus:outline-none">Login</button>
+        <button id="signupTab" class="font-semibold text-orange-500 border-b-2 border-orange-400 pb-1 transition-colors focus:outline-none">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="flex flex-col gap-4 w-full hidden" autocomplete="off">
+        <input type="email" id="loginEmail" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Email" required>
+        <input type="password" id="loginPassword" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Password" required>
+        <button type="submit" class="bg-orange-500 text-white px-5 py-2 rounded font-semibold hover:bg-orange-600 mx-auto w-36 block mt-3">Login</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="flex flex-col gap-4 w-full" autocomplete="off">
+        <input type="text" id="signupName" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Name" required>
+        <input type="email" id="signupEmail" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Email" required>
+        <input type="password" id="signupPassword" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Password" required>
+        <input type="password" id="signupConfirmPassword" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Confirm Password" required>
+        <button type="submit" class="bg-orange-500 text-white px-5 py-2 rounded font-semibold hover:bg-orange-600 mx-auto w-36 block mt-3">Sign Up</button>
+      </form>
+
+      <div class="text-center mt-6 w-full">
+        <span id="loginSwitch" class="hidden">
+          Already have an account?
+          <button class="text-orange-500 underline font-medium" type="button" onclick="switchToLogin()">Login</button>
+        </span>
+        <span id="signupSwitch">
+          Already have an account?
+          <button class="text-orange-500 underline font-medium" type="button" onclick="switchToLogin()">Login</button>
+        </span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tab selectors
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const loginSwitch = document.getElementById('loginSwitch');
+    const signupSwitch = document.getElementById('signupSwitch');
+
+    function switchToLogin() {
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      loginTab.classList.add('text-orange-500', 'border-b-2', 'border-orange-400');
+      signupTab.classList.remove('text-orange-500', 'border-b-2', 'border-orange-400');
+      loginTab.classList.remove('text-gray-700');
+      signupTab.classList.add('text-gray-700');
+      loginSwitch.classList.add('hidden');
+      signupSwitch.classList.remove('hidden');
+    }
+
+    function switchToSignup() {
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      signupTab.classList.add('text-orange-500', 'border-b-2', 'border-orange-400');
+      loginTab.classList.remove('text-orange-500', 'border-b-2', 'border-orange-400');
+      signupTab.classList.remove('text-gray-700');
+      loginTab.classList.add('text-gray-700');
+      loginSwitch.classList.remove('hidden');
+      signupSwitch.classList.add('hidden');
+    }
+
+    loginTab.addEventListener('click', switchToLogin);
+    signupTab.addEventListener('click', switchToSignup);
+
+    // Default to Sign Up tab as in your screenshot
+    switchToSignup();
+
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      alert(`Logged in as: ${email}`);
+    };
+
+    signupForm.onsubmit = function(e) {
+      e.preventDefault();
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+      if(password !== confirmPassword){
+        alert("Passwords do not match!");
+        return;
+      }
+      const email = document.getElementById('signupEmail').value;
+      alert(`Signed up as: ${email}`);
+    };
+
+    document.getElementById('signupNavBtn').onclick = function() { switchToSignup(); };
+  </script>
+</body>
+</html>

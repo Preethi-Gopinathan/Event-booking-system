@@ -1,0 +1,90 @@
+<!-- event-details.html Tailwind skeleton -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventHub - Event Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-white via-orange-50 to-orange-100 min-h-screen">
+  <header class="flex justify-between items-center px-8 py-4 bg-white shadow">
+    <div class="font-bold text-lg flex items-center gap-2">
+      <span>📅</span> EventHub
+    </div>
+    <nav class="flex items-center gap-4">
+      <a href="events.html" class="text-gray-700 font-medium hover:text-orange-500">Events</a>
+      <a href="my-bookings.html" class="text-gray-700 font-medium hover:text-orange-500">My Bookings</a>
+      <a href="login-signup.html" class="text-gray-700 font-medium">Login</a>
+      <button id="signupNavBtn" class="ml-2 px-4 py-1 rounded bg-orange-500 text-white font-medium hover:bg-orange-600">Sign Up</button>
+    </nav>  
+  </header>
+
+  <main class="flex flex-col items-center justify-center pt-12 pb-8">
+    <div class="bg-orange-100 w-[80vw] h-48 rounded-xl mb-6"></div>
+    <div id="eventDetailsContainer" class="bg-white rounded-xl shadow p-8 w-full max-w-2xl"></div>
+  </main>
+
+  <script>
+    function renderEventDetails(){
+      const event = JSON.parse(localStorage.getItem('selectedEvent') || 'null');
+      const container = document.getElementById('eventDetailsContainer');
+      if(!event){
+        container.innerHTML = '<div class="text-center text-gray-500 py-12 text-lg">No event selected. Go to <a href="events.html" class="text-orange-500 underline">All Events</a>.</div>';
+        return;
+      }
+      container.innerHTML = `
+        <div class="flex justify-between items-center mb-2">
+          <h2 class="text-2xl font-semibold">${event.title}</h2>
+          <span class="px-3 py-1 rounded-full ${event.category === 'music' ? 'bg-orange-500' : event.category==='workshop'?'bg-yellow-500':'bg-green-500'} text-white text-sm font-semibold">${event.category}</span>
+        </div>
+        <p class="text-gray-700 mb-5">${event.description}</p>
+        <div class="grid md:grid-cols-2 gap-5 mb-4">
+          <div class="bg-orange-50 rounded p-3 flex flex-col">
+            <span class="font-semibold flex items-center gap-2 mb-1">
+              <span>📅</span> Date
+            </span>
+            <span>${event.date}</span>
+          </div>
+          <div class="bg-orange-50 rounded p-3 flex flex-col">
+            <span class="font-semibold flex items-center gap-2 mb-1">
+              <span>⏰</span> Time
+            </span>
+            <span>${event.time}</span>
+          </div>
+          <div class="bg-orange-50 rounded p-3 flex flex-col">
+            <span class="font-semibold flex items-center gap-2 mb-1">
+              <span>📍</span> Venue
+            </span>
+            <span>${event.venue}</span>
+          </div>
+          <div class="bg-orange-50 rounded p-3 flex flex-col">
+            <span class="font-semibold flex items-center gap-2 mb-1">
+              <span>👥</span> Available Seats
+            </span>
+            <span>${event.seats}</span>
+          </div>
+        </div>
+        <button id="bookNowBtn" class="mt-4 w-full bg-orange-500 text-white py-2 rounded font-semibold hover:bg-orange-600 text-base">Book Now</button>
+      `;
+
+      document.getElementById('bookNowBtn').onclick = function() {
+        let bookings = JSON.parse(localStorage.getItem('myBookings') || '[]');
+        if(bookings.some(ev => ev.id === event.id)){
+          alert('You have already booked this event!');
+          return;
+        }
+        bookings.push(event);
+        localStorage.setItem('myBookings', JSON.stringify(bookings));
+        alert('Event booked! Check "My Bookings" page.');
+      };
+    }
+
+    renderEventDetails();
+
+    document.getElementById('signupNavBtn').onclick = function() {
+      window.location.href = 'login-signup.html';
+    };
+  </script>
+</body>
+</html>

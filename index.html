@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventHub - Discover Amazing Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-white via-orange-50 to-orange-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center px-8 py-4 bg-white">
+    <div class="font-bold text-lg flex items-center gap-2">
+      <span>📅</span> EventHub
+    </div>
+    <nav class="flex items-center gap-4">
+      <a href="#" class="text-gray-700 font-medium">Events</a>
+      <a href="#" id="loginBtn" class="text-gray-700 font-medium">Login</a>
+      <button id="signupBtn" class="ml-2 px-4 py-1 rounded bg-orange-500 text-white font-medium hover:bg-orange-600">Sign Up</button>
+    </nav>
+  </header>
+
+  <main class="px-6 md:px-12">
+    <!-- Hero section -->
+    <section class="text-center mt-14 mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold mb-3">Discover Amazing Events</h1>
+      <p class="text-gray-600 mb-6">Find and book tickets to the best events in your area</p>
+      <div class="flex justify-center gap-4">
+        <button id="browseBtn" class="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">
+          Browse Events
+        </button>
+        <button id="signupFreeBtn" class="border border-orange-500 text-orange-500 px-6 py-2 rounded hover:bg-orange-100">
+          Sign Up Free
+        </button>
+      </div>
+    </section>
+
+    <!-- Recommended section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-6">✨ Recommended for You</h2>
+      <div class="flex flex-col md:flex-row gap-8 justify-center mb-6">
+        <!-- Card 1 -->
+        <div class="relative bg-orange-50 rounded-xl shadow p-6 flex-1 max-w-sm">
+          <span class="absolute top-4 right-4 px-3 py-1 bg-orange-500 text-white rounded-full text-xs font-semibold">music</span>
+          <h3 class="mt-6 text-lg font-semibold">Summer Music Festival</h3>
+          <p class="my-2 text-gray-700">An amazing outdoor music festival featuring top artists</p>
+          <p class="text-sm text-gray-600">📅 12/00/2025 at 18:00</p>
+          <p class="text-sm text-gray-600">📍 Central Park Amphitheater</p>
+          <p class="text-sm text-gray-600 mb-2">👥 342 / 500 seats available</p>
+          <button class="detailsBtn w-full mt-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">View Details</button>
+        </div>
+        <!-- Card 2 -->
+        <div class="relative bg-orange-50 rounded-xl shadow p-6 flex-1 max-w-sm">
+          <span class="absolute top-4 right-4 px-3 py-1 bg-yellow-500 text-white rounded-full text-xs font-semibold">workshop</span>
+          <h3 class="mt-6 text-lg font-semibold">Web Development Workshop</h3>
+          <p class="my-2 text-gray-700">Learn modern web development with React and TypeScript</p>
+          <p class="text-sm text-gray-600">📅 11/15/2025 at 10:00</p>
+          <p class="text-sm text-gray-600">📍 Tech Hub Downtown</p>
+          <p class="text-sm text-gray-600 mb-2">👥 12 / 50 seats available</p>
+          <button class="detailsBtn w-full mt-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">View Details</button>
+        </div>
+        <!-- Card 3 -->
+        <div class="relative bg-orange-50 rounded-xl shadow p-6 flex-1 max-w-sm">
+          <span class="absolute top-4 right-4 px-3 py-1 bg-green-500 text-white rounded-full text-xs font-semibold">sports</span>
+          <h3 class="mt-6 text-lg font-semibold">City Marathon 2025</h3>
+          <p class="my-2 text-gray-700">Annual city marathon open to all fitness levels</p>
+          <p class="text-sm text-gray-600">📅 11/25/2025 at 07:00</p>
+          <p class="text-sm text-gray-600">📍 City Square</p>
+          <p class="text-sm text-gray-600 mb-2">👥 456 / 1000 seats available</p>
+          <button class="detailsBtn w-full mt-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">View Details</button>
+        </div>
+      </div>
+      <div class="flex justify-center mb-6">
+        <button id="viewAllBtn" class="border border-orange-500 text-orange-500 px-5 py-2 rounded hover:bg-orange-100">View All Events</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.detailsBtn').forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        alert(`Details for event ${idx + 1}! Add your modal or redirect here.`);
+      });
+    });
+
+    document.getElementById('viewAllBtn').onclick = function() {
+      alert("Redirecting to all events...");
+    };
+
+    document.getElementById('signupBtn').onclick = function() {
+      alert("Sign up functionality!");
+    };
+
+    document.getElementById('loginBtn').onclick = function() {
+      alert("Login functionality!");
+    };
+
+    document.getElementById('browseBtn').onclick = function() {
+      alert("Browse Events functionality!");
+    };
+
+    document.getElementById('signupFreeBtn').onclick = function() {
+      alert("Sign Up Free functionality!");
+    };
+  </script>
+</body>
+</html>

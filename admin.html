@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventHub - Add Event (Admin)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-white via-orange-50 to-orange-100 min-h-screen">
+
+  <!-- Header/Navbar -->
+  <header class="flex justify-between items-center px-8 py-4 bg-white shadow">
+    <div class="font-bold text-lg flex items-center gap-2">
+      <span>📅</span> EventHub Admin
+    </div>
+    <nav class="flex items-center gap-4">
+      <a href="events.html" class="text-gray-700 font-medium transition-colors hover:text-orange-500">Events</a>
+      <a href="my-bookings.html" class="text-gray-700 font-medium transition-colors hover:text-orange-500">My Bookings</a>
+      <a href="login-signup.html" class="text-gray-700 font-medium">Logout</a>
+    </nav>
+  </header>
+
+  <main class="flex flex-col items-center justify-center min-h-[80vh]">
+    <div class="bg-orange-50 shadow-xl rounded-2xl py-10 px-8 w-full max-w-lg flex flex-col items-center mt-6">
+      <h2 class="text-2xl font-bold mb-6">Add New Event</h2>
+      <form id="addEventForm" class="flex flex-col gap-4 w-full">
+        <input type="text" id="eventTitle" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Event Title" required>
+        <select id="eventCategory" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" required>
+          <option value="">Select Category</option>
+          <option value="music">Music</option>
+          <option value="workshop">Workshop</option>
+          <option value="sports">Sports</option>
+        </select>
+        <input type="date" id="eventDate" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" required>
+        <input type="time" id="eventTime" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" required>
+        <input type="text" id="eventVenue" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Venue" required>
+        <input type="number" id="availableSeats" min="1" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Available Seats" required>
+        <textarea id="eventDescription" class="px-4 py-2 rounded border border-gray-300 focus:outline-none" placeholder="Event Description" required></textarea>
+        <button type="submit" class="bg-orange-500 text-white px-5 py-2 rounded font-semibold hover:bg-orange-600 mx-auto w-36 block mt-3">Add Event</button>
+      </form>
+      <div id="successMsg" class="hidden mt-5 text-green-600 font-medium"></div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('addEventForm').onsubmit = function(e) {
+      e.preventDefault();
+      const title = document.getElementById('eventTitle').value;
+      const category = document.getElementById('eventCategory').value;
+      const date = document.getElementById('eventDate').value;
+      const time = document.getElementById('eventTime').value;
+      const venue = document.getElementById('eventVenue').value;
+      const seats = document.getElementById('availableSeats').value;
+      const description = document.getElementById('eventDescription').value;
+
+      // Build event object (ID is title + date + random for demo)
+      const event = {
+        id: title.toLowerCase().replace(/\s+/g, '-') + '-' + date.replace(/-/g,''),
+        title,
+        category,
+        date,
+        time,
+        venue,
+        seats,
+        description 
+      };
+
+      // Save to localStorage (append to myEvents key)
+      let myEvents = JSON.parse(localStorage.getItem('myEvents') || '[]');
+      myEvents.push(event);
+      localStorage.setItem('myEvents', JSON.stringify(myEvents));
+
+      document.getElementById('successMsg').textContent = "Event added successfully!";
+      document.getElementById('successMsg').classList.remove('hidden');
+      e.target.reset();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EventHub - All Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-white via-orange-50 to-orange-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center px-8 py-4 bg-white">
+    <div class="font-bold text-lg flex items-center gap-2">
+      <span>📅</span> EventHub
+    </div>
+    <nav class="flex items-center gap-4">
+      <a href="#" class="text-gray-700 font-medium">Events</a>
+      <a href="#" id="loginBtn" class="text-gray-700 font-medium">Login</a>
+      <button id="signupBtn" class="ml-2 px-4 py-1 rounded bg-orange-500 text-white font-medium hover:bg-orange-600">Sign Up</button>
+    </nav>
+  </header>
+
+  <main class="px-6 md:px-16">
+    <!-- Title -->
+    <h1 class="text-3xl font-bold mt-8 mb-6">All Events</h1>
+
+    <!-- Search & Filter Controls -->
+    <div class="flex flex-col md:flex-row items-center gap-4 mb-7">
+      <input id="searchInput" type="text" placeholder="Search events..." class="w-full md:w-96 px-4 py-2 rounded border border-gray-300 focus:outline-none" />
+      <select id="categorySelect" class="w-full md:w-48 px-4 py-2 rounded border border-gray-300 focus:outline-none">
+        <option value="all">All Categories</option>
+        <option value="music">Music</option>
+        <option value="workshop">Workshop</option>
+        <option value="sports">Sports</option>
+      </select>
+    </div>
+
+    <!-- Events List -->
+    <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Cards will be rendered by JS -->
+    </div>
+  </main>
+
+  <!-- inside <body> and <main> -->
+<div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <!-- Cards rendered by JS -->
+</div>
+
+<script>
+const events = [
+  {
+    id: "summer-music-festival-2025",
+    title: "Summer Music Festival",
+    category: "music",
+    date: "12/20/2025",
+    time: "18:00",
+    venue: "Central Park Amphitheater",
+    seats: "342 / 500",
+    description: "An amazing outdoor music festival featuring top artists"
+  },
+  {
+    id: "web-dev-workshop-2025",
+    title: "Web Development Workshop",
+    category: "workshop",
+    date: "11/15/2025",
+    time: "10:00",
+    venue: "Tech Hub Downtown",
+    seats: "12 / 50",
+    description: "Learn modern web development with React and TypeScript"
+  },
+  {
+    id: "city-marathon-2025",
+    title: "City Marathon 2025",
+    category: "sports",
+    date: "11/25/2025",
+    time: "07:00",
+    venue: "City Square",
+    seats: "456 / 1000",
+    description: "Annual city marathon open to all fitness levels"
+  },
+  {
+    id: "jazz-night-live-2025",
+    title: "Jazz Night Live",
+    category: "music",
+    date: "11/12/2025",
+    time: "20:00",
+    venue: "Blue Note Club",
+    seats: "23 / 100",
+    description: "Intimate jazz performance with local artists"
+  },
+  {
+    id: "photography-masterclass-2025",
+    title: "Photography Masterclass",
+    category: "workshop",
+    date: "11/18/2025",
+    time: "14:00",
+    venue: "Creative Studio",
+    seats: "8 / 30",
+    description: "Professional photography techniques and tips"
+  }
+];
+
+function renderEvents() {
+  const container = document.getElementById('eventsContainer');
+  container.innerHTML = events.map(ev => `
+    <div class="relative bg-orange-50 rounded-xl shadow p-6 flex-1 cursor-pointer" onclick="showEventDetails('${ev.id}')">
+      <span class="absolute top-4 right-4 px-3 py-1 ${ev.category==='music'?'bg-orange-500':ev.category==='workshop'?'bg-yellow-500':'bg-green-500'} text-white rounded-full text-xs font-semibold">${ev.category}</span>
+      <h3 class="mt-6 text-lg font-semibold">${ev.title}</h3>
+      <p class="my-2 text-gray-700">${ev.description}</p>
+      <p class="text-sm text-gray-600">📅 ${ev.date} at ${ev.time}</p>
+      <p class="text-sm text-gray-600">📍 ${ev.venue}</p>
+      <p class="text-sm text-gray-600 mb-2">👥 ${ev.seats} seats available</p>
+      <button class="detailsBtn w-full mt-2 py-2 bg-orange-500 text-white rounded hover:bg-orange-600" data-id="${ev.id}">View Details</button>
+    </div>
+  `).join('');
+  
+  // Button click event
+  document.querySelectorAll('.detailsBtn').forEach(btn => {
+    btn.onclick = function(e) {
+      e.stopPropagation(); // prevent parent div's onclick
+      showEventDetails(btn.dataset.id);
+    };
+  });
+}
+
+function showEventDetails(eventId) {
+  const eventObj = events.find(ev => ev.id === eventId);
+  localStorage.setItem('selectedEvent', JSON.stringify(eventObj));
+  window.location.href = "event-details.html";
+}
+
+renderEvents();
+</script>
+</body>
+</html>
